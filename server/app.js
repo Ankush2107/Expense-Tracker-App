@@ -3,6 +3,7 @@ import cors from 'cors';
 import { config } from 'dotenv';
 import db from "./db/db.js";
 import { readdirSync } from 'fs';
+import transaction from "./routes/transaction.route.js";
 
 config();
 
@@ -15,7 +16,7 @@ app.use(express.json());
 app.use(cors());
 
 // router
-readdirSync('./routes').map((route) => app.use('/api/v1', import('./routes/' + route)));
+app.use('/api/v1', transaction);
 app.get('/', (req, res) => {
     res.send('Hello world');
 });
